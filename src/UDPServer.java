@@ -8,7 +8,7 @@ public class UDPServer {
             DatagramSocket socketServeur = new DatagramSocket(null);
             InetSocketAddress adresse = new InetSocketAddress("localhost", 5000);
             socketServeur.bind(adresse);
-            System.out.println("Serveur en attente sur le port 5000...");
+            System.out.println("Serveur RX302 en attente sur le port 5000...");
 
             while (true) {
                 byte[] recues = new byte[1024];
@@ -21,7 +21,7 @@ public class UDPServer {
                 System.out.println("Nouveau client : " + clientIP + ":" + clientPort);
                 System.out.println("Message reçu : " + message);
 
-                String reponse = "Message reçu : " + message;
+                String reponse = "Serveur RX302 ready";
                 byte[] envoyees = reponse.getBytes();
                 DatagramPacket paquetEnvoye = new DatagramPacket(envoyees, envoyees.length, paquetRecu.getAddress(), clientPort);
                 socketServeur.send(paquetEnvoye);

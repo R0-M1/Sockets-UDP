@@ -1,6 +1,0 @@
-@startuml
-participant Client
-participant Server
-Client -> Server : To Server
-Server -> Client : To Client
-@enduml

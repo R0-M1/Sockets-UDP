@@ -2,7 +2,7 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.HashMap;
 
-public class Main {
+public class ScanPort {
 
     public static void main(String[] args) {
         int startPort = 100;

@@ -11,7 +11,7 @@ public class UDPClient {
             byte[] envoyees;
             byte[] recues = new byte[1024];
 
-            String message = "hello world";
+            String message = "hello serveur RX302";
             envoyees = message.getBytes();
             DatagramPacket messageEnvoye = new DatagramPacket(envoyees, envoyees.length, adresseServeur, 5000);
             socketClient.send(messageEnvoye);
