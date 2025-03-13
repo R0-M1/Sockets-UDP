@@ -2,6 +2,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class UDPServer {
     private static final int PORT = 5432;
@@ -35,11 +36,15 @@ public class UDPServer {
             if (clientName.equalsIgnoreCase("exit")) {
                 removeClient(clientAddress);
                 return;
+            } else if (clientName.equalsIgnoreCase("list")) {
+                System.out.println("Envoie de la liste des clients à " + clientName + " (" + clientAddress + ")");
+                sendMessage(socket, clients.keySet().toString(), clientAddress);
+                return;
+            } else if (clientName.startsWith("+")) {
+                clients.put(clientName.replace("+",""), clientAddress);
+                System.out.println("Nouveau client connecté : " + clientName + " (" + clientAddress + ")");
+                sendMessage(socket, "Bienvenue " + clientName + "! Utilisez format: destinataire:message", clientAddress);
             }
-
-            clients.put(clientName, clientAddress);
-            System.out.println("Nouveau client connecté : " + clientName + " (" + clientAddress + ")");
-            sendMessage(socket, "Bienvenue " + clientName + "! Utilisez format: destinataire:message", clientAddress);
 
         } else if (parts.length == 2) {
             String destinataire = parts[0];
@@ -48,9 +53,16 @@ public class UDPServer {
             if (contenu.equalsIgnoreCase("exit")) {
                 removeClient(clientAddress);
                 return;
-            }
+            } else if (destinataire.equals("*")) {
 
-            if (clients.containsKey(destinataire)) {
+                for (InetSocketAddress address : clients.values()) {
+                    if (!address.equals(clientAddress)) {
+                        sendMessage(socket, contenu, address);
+                        System.out.println("Broadcast envoyé à " + address + " : " + contenu);
+                    }
+                }
+                return;
+            } else if (clients.containsKey(destinataire)) {
                 sendMessage(socket, contenu, clients.get(destinataire));
                 System.out.println("Message envoyé à " + destinataire + " : " + contenu);
             } else {

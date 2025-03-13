@@ -19,7 +19,7 @@ public class UDPClient {
             new Thread(() -> receiveMessages(clientSocket)).start();
 
             while (true) {
-                System.out.print("Message (format: destinataire:message ou 'exit' pour quitter) : ");
+                System.out.print("Message (format: destinataire:message ou *:message pour broadcast ou list pour afficher tous les clients ou 'exit' pour quitter) : ");
                 String message = scanner.nextLine();
 
                 if (message.equalsIgnoreCase("exit")) {
@@ -56,7 +56,7 @@ public class UDPClient {
                 socket.receive(packet);
                 String message = new String(packet.getData(), 0, packet.getLength());
                 System.out.println("\n[Message reçu] " + message);
-                System.out.print("Message (format: destinataire:message ou 'exit' pour quitter) : ");
+                System.out.print("Message (format: 'destinataire:message' | '*:message' pour broadcast | 'list' pour afficher tous les clients | 'exit' pour quitter) : ");
             }
         } catch (Exception e) {
             System.err.println("Erreur réception message : " + e.getMessage());
