@@ -1,3 +1,9 @@
 # Sockets-UDP
 
-voir documentation pour plus d'informations
+Chat UDP Multi-Clients
+
+➡️ [**Consultez la documentation ici**](https://github.com/R0-M1/Sockets-UDP/blob/main/doc/documentation.pdf) ⬅️
+
+### Membres 
+AILLAUD Romain  
+DELAVAUD Quentin
